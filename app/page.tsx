@@ -59,8 +59,8 @@ const sampleAnnouncements: Announcement[] = [
 
 function LoadingSkeleton() {
   return (
-    <div className="flex h-screen bg-[#080808]">
-      <div className="w-[260px] bg-[#0A0A0A] border-r border-white/[0.06] skeleton-shimmer" />
+    <div className="flex h-screen bg-background">
+      <div className="w-[260px] bg-card border-r border-border skeleton-shimmer" />
       <div className="flex-1 p-6 space-y-6">
         <div className="h-12 skeleton-shimmer rounded-xl" />
         <div className="grid grid-cols-4 gap-4">
@@ -129,7 +129,7 @@ export default function Dashboard() {
   if (loading) return <LoadingSkeleton />
 
   return (
-    <div className="flex h-screen bg-[#080808] text-[#F5F5F5] overflow-hidden">
+    <div className="flex h-screen bg-background text-foreground overflow-hidden">
       <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
       <div className="flex-1 ml-[260px] flex flex-col overflow-hidden">
         <DashboardHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} sidebarCollapsed={false} />
@@ -139,7 +139,7 @@ export default function Dashboard() {
             {/* DASHBOARD */}
             {activeTab === "dashboard" && (
               <div className="space-y-6 animate-in fade-in duration-300">
-                <div><h2 className="text-xl font-bold text-white">Dashboard</h2><p className="text-sm text-[#606060] mt-0.5">Vue d&apos;ensemble — Club Eagles</p></div>
+                <div><h2 className="text-xl font-bold text-foreground">Dashboard</h2><p className="text-sm text-muted-foreground mt-0.5">Vue d&apos;ensemble — Club Eagles</p></div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   <StatsCard label="Total Membres" value={members.length} icon={Users} trend={12} variant="accent" />
                   <StatsCard label="Membres Actifs" value={activeM} icon={TrendingUp} trend={8} variant="success" />
@@ -150,19 +150,19 @@ export default function Dashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   <ActivityFeed />
                   <div className="glass-card rounded-2xl p-5">
-                    <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><DollarSign size={14} className="text-[#D45902]" />Cotisations Récentes</h3>
+                    <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2"><DollarSign size={14} className="text-[#D45902]" />Cotisations Récentes</h3>
                     <div className="space-y-3">{cotisations.slice(0, 5).map(c => (
-                      <div key={c.id} className="flex items-center justify-between"><div><p className="text-xs font-medium text-white">{c.membreNom}</p><p className="text-[10px] text-[#606060]">{c.datePaiement || "Non payé"}</p></div>
-                        <div className="text-right"><p className="text-xs font-bold text-white">{c.montant} DH</p><span className={cn("text-[10px] font-semibold", c.statut === "payée" && "text-[#22C55E]", c.statut === "en attente" && "text-[#F59E0B]", c.statut === "en retard" && "text-[#EF4444]")}>{c.statut}</span></div></div>
+                      <div key={c.id} className="flex items-center justify-between"><div><p className="text-xs font-medium text-foreground">{c.membreNom}</p><p className="text-[10px] text-muted-foreground">{c.datePaiement || "Non payé"}</p></div>
+                        <div className="text-right"><p className="text-xs font-bold text-foreground">{c.montant} DH</p><span className={cn("text-[10px] font-semibold", c.statut === "payée" && "text-[#22C55E]", c.statut === "en attente" && "text-[#F59E0B]", c.statut === "en retard" && "text-[#EF4444]")}>{c.statut}</span></div></div>
                     ))}</div>
                   </div>
                   <div className="glass-card rounded-2xl p-5">
-                    <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><TrendingUp size={14} className="text-[#D45902]" />Performance</h3>
+                    <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2"><TrendingUp size={14} className="text-[#D45902]" />Performance</h3>
                     <div className="space-y-4">{[
                       { label: "Taux de paiement", value: cotisations.length > 0 ? Math.round((paidC / cotisations.length) * 100) : 0 },
                       { label: "Membres actifs", value: members.length > 0 ? Math.round((activeM / members.length) * 100) : 0 },
                       { label: "Participation", value: 78 },
-                    ].map((m, i) => (<div key={i}><div className="flex justify-between mb-1"><span className="text-xs text-[#A0A0A0]">{m.label}</span><span className="text-xs font-bold text-white">{m.value}%</span></div><div className="w-full bg-white/[0.06] rounded-full h-1.5"><div className="bg-[#D45902] rounded-full h-1.5 transition-all duration-1000" style={{ width: `${m.value}%` }} /></div></div>))}</div>
+                    ].map((m, i) => (<div key={i}><div className="flex justify-between mb-1"><span className="text-xs text-muted-foreground">{m.label}</span><span className="text-xs font-bold text-foreground">{m.value}%</span></div><div className="w-full bg-border rounded-full h-1.5"><div className="bg-[#D45902] rounded-full h-1.5 transition-all duration-1000" style={{ width: `${m.value}%` }} /></div></div>))}</div>
                   </div>
                 </div>
               </div>
@@ -172,23 +172,23 @@ export default function Dashboard() {
             {activeTab === "members" && (
               <div className="space-y-6 animate-in fade-in duration-300">
                 <div className="flex items-center justify-between">
-                  <div><h2 className="text-xl font-bold text-white">Membres</h2><p className="text-sm text-[#606060]">{members.length} membre(s) enregistré(s)</p></div>
+                  <div><h2 className="text-xl font-bold text-foreground">Membres</h2><p className="text-sm text-muted-foreground">{members.length} membre(s) enregistré(s)</p></div>
                   <button onClick={() => { setSelectedMember(null); setShowMemberForm(true) }} className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium bg-gradient-to-r from-[#D45902] to-[#F97316] text-white rounded-xl hover:shadow-lg hover:shadow-[#D45902]/25 transition-all"><Plus size={14} />Ajouter</button>
                 </div>
                 <div className="glass-card rounded-2xl overflow-hidden">
-                  <div className="overflow-x-auto"><table className="w-full"><thead><tr className="border-b border-white/[0.06]">
-                    {["Membre", "Email", "Ville", "Âge", "Statut", "Actions"].map(h => <th key={h} className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-[#606060]">{h}</th>)}
+                  <div className="overflow-x-auto"><table className="w-full"><thead><tr className="border-b border-border">
+                    {["Membre", "Email", "Ville", "Âge", "Statut", "Actions"].map(h => <th key={h} className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{h}</th>)}
                   </tr></thead><tbody>
-                    {filtered.length === 0 ? <tr><td colSpan={6} className="px-5 py-12 text-center"><Search size={32} className="mx-auto text-[#606060]/30 mb-2" /><p className="text-sm text-[#606060]">Aucun membre trouvé</p></td></tr> :
-                    filtered.map(m => (<tr key={m.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
-                      <td className="px-5 py-3.5"><div className="flex items-center gap-3"><div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#D45902] to-[#F97316] flex items-center justify-center text-xs font-bold text-white">{m.prenom[0]}{m.nom[0]}</div><div><span className="text-sm font-medium text-white">{m.prenom} {m.nom}</span><p className="text-[10px] text-[#606060]">Depuis {m.dateAdhesion}</p></div></div></td>
-                      <td className="px-5 py-3.5 text-sm text-[#A0A0A0]">{m.email}</td>
-                      <td className="px-5 py-3.5 text-sm text-[#A0A0A0]">{m.ville}</td>
-                      <td className="px-5 py-3.5 text-sm text-[#A0A0A0]">{m.age}</td>
+                    {filtered.length === 0 ? <tr><td colSpan={6} className="px-5 py-12 text-center"><Search size={32} className="mx-auto text-muted-foreground/30 mb-2" /><p className="text-sm text-muted-foreground">Aucun membre trouvé</p></td></tr> :
+                    filtered.map(m => (<tr key={m.id} className="border-b border-border hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
+                      <td className="px-5 py-3.5"><div className="flex items-center gap-3"><div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#D45902] to-[#F97316] flex items-center justify-center text-xs font-bold text-white">{m.prenom[0]}{m.nom[0]}</div><div><span className="text-sm font-medium text-foreground">{m.prenom} {m.nom}</span><p className="text-[10px] text-muted-foreground">Depuis {m.dateAdhesion}</p></div></div></td>
+                      <td className="px-5 py-3.5 text-sm text-muted-foreground">{m.email}</td>
+                      <td className="px-5 py-3.5 text-sm text-muted-foreground">{m.ville}</td>
+                      <td className="px-5 py-3.5 text-sm text-muted-foreground">{m.age}</td>
                       <td className="px-5 py-3.5"><span className={cn("px-2.5 py-1 rounded-full text-[10px] font-semibold", m.statut === "actif" ? "bg-[#22C55E]/10 text-[#22C55E]" : "bg-[#EF4444]/10 text-[#EF4444]")}>{m.statut}</span></td>
                       <td className="px-5 py-3.5"><div className="flex items-center justify-end gap-1">
-                        <button onClick={() => { setSelectedMember(m); setShowMemberForm(true) }} className="p-1.5 rounded-lg text-[#606060] hover:text-[#D45902] hover:bg-[#D45902]/10 transition-colors"><Edit2 size={14} /></button>
-                        <button onClick={() => deleteMember(m.id)} className="p-1.5 rounded-lg text-[#606060] hover:text-[#EF4444] hover:bg-[#EF4444]/10 transition-colors"><Trash2 size={14} /></button>
+                        <button onClick={() => { setSelectedMember(m); setShowMemberForm(true) }} className="p-1.5 rounded-lg text-muted-foreground hover:text-[#D45902] hover:bg-[#D45902]/10 transition-colors"><Edit2 size={14} /></button>
+                        <button onClick={() => deleteMember(m.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-[#EF4444] hover:bg-[#EF4444]/10 transition-colors"><Trash2 size={14} /></button>
                       </div></td>
                     </tr>))}
                   </tbody></table></div>
@@ -200,27 +200,27 @@ export default function Dashboard() {
             {activeTab === "contributions" && (
               <div className="space-y-6 animate-in fade-in duration-300">
                 <div className="flex items-center justify-between">
-                  <div><h2 className="text-xl font-bold text-white">Cotisations</h2><p className="text-sm text-[#606060]">{paidC}/{cotisations.length} payée(s) — Total: {totalRev} DH</p></div>
+                  <div><h2 className="text-xl font-bold text-foreground">Cotisations</h2><p className="text-sm text-muted-foreground">{paidC}/{cotisations.length} payée(s) — Total: {totalRev} DH</p></div>
                   <button onClick={() => { setSelectedCotisation(null); setShowCotisationForm(true) }} className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium bg-gradient-to-r from-[#D45902] to-[#F97316] text-white rounded-xl hover:shadow-lg hover:shadow-[#D45902]/25 transition-all"><Plus size={14} />Enregistrer</button>
                 </div>
                 {/* Progress bar */}
                 <div className="glass-card rounded-2xl p-5">
-                  <div className="flex justify-between mb-2"><span className="text-sm text-[#A0A0A0]">Taux de collecte</span><span className="text-sm font-bold text-white">{cotisations.length > 0 ? Math.round((paidC / cotisations.length) * 100) : 0}%</span></div>
-                  <div className="w-full bg-white/[0.06] rounded-full h-3"><div className="bg-gradient-to-r from-[#D45902] to-[#22C55E] rounded-full h-3 transition-all duration-1000" style={{ width: `${cotisations.length > 0 ? (paidC / cotisations.length) * 100 : 0}%` }} /></div>
+                  <div className="flex justify-between mb-2"><span className="text-sm text-muted-foreground">Taux de collecte</span><span className="text-sm font-bold text-foreground">{cotisations.length > 0 ? Math.round((paidC / cotisations.length) * 100) : 0}%</span></div>
+                  <div className="w-full bg-border rounded-full h-3"><div className="bg-gradient-to-r from-[#D45902] to-[#22C55E] rounded-full h-3 transition-all duration-1000" style={{ width: `${cotisations.length > 0 ? (paidC / cotisations.length) * 100 : 0}%` }} /></div>
                 </div>
                 <div className="glass-card rounded-2xl overflow-hidden">
-                  <div className="overflow-x-auto"><table className="w-full"><thead><tr className="border-b border-white/[0.06]">
-                    {["Membre", "Montant", "Date", "Méthode", "Statut", "Actions"].map(h => <th key={h} className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-[#606060]">{h}</th>)}
+                  <div className="overflow-x-auto"><table className="w-full"><thead><tr className="border-b border-border">
+                    {["Membre", "Montant", "Date", "Méthode", "Statut", "Actions"].map(h => <th key={h} className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{h}</th>)}
                   </tr></thead><tbody>
-                    {cotisations.map(c => (<tr key={c.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
-                      <td className="px-5 py-3.5 text-sm font-medium text-white">{c.membreNom}</td>
-                      <td className="px-5 py-3.5 text-sm text-white font-semibold">{c.montant} DH</td>
-                      <td className="px-5 py-3.5 text-sm text-[#A0A0A0]">{c.datePaiement || "—"}</td>
-                      <td className="px-5 py-3.5 text-sm text-[#A0A0A0]">{c.methode || "—"}</td>
+                    {cotisations.map(c => (<tr key={c.id} className="border-b border-border hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
+                      <td className="px-5 py-3.5 text-sm font-medium text-foreground">{c.membreNom}</td>
+                      <td className="px-5 py-3.5 text-sm text-foreground font-semibold">{c.montant} DH</td>
+                      <td className="px-5 py-3.5 text-sm text-muted-foreground">{c.datePaiement || "—"}</td>
+                      <td className="px-5 py-3.5 text-sm text-muted-foreground">{c.methode || "—"}</td>
                       <td className="px-5 py-3.5"><span className={cn("px-2.5 py-1 rounded-full text-[10px] font-semibold", c.statut === "payée" && "bg-[#22C55E]/10 text-[#22C55E]", c.statut === "en attente" && "bg-[#F59E0B]/10 text-[#F59E0B]", c.statut === "en retard" && "bg-[#EF4444]/10 text-[#EF4444]")}>{c.statut}</span></td>
                       <td className="px-5 py-3.5"><div className="flex items-center justify-end gap-1">
-                        <button onClick={() => { setSelectedCotisation(c); setShowCotisationForm(true) }} className="p-1.5 rounded-lg text-[#606060] hover:text-[#D45902] hover:bg-[#D45902]/10 transition-colors"><Edit2 size={14} /></button>
-                        <button onClick={() => deleteCotisation(c.id)} className="p-1.5 rounded-lg text-[#606060] hover:text-[#EF4444] hover:bg-[#EF4444]/10 transition-colors"><Trash2 size={14} /></button>
+                        <button onClick={() => { setSelectedCotisation(c); setShowCotisationForm(true) }} className="p-1.5 rounded-lg text-muted-foreground hover:text-[#D45902] hover:bg-[#D45902]/10 transition-colors"><Edit2 size={14} /></button>
+                        <button onClick={() => deleteCotisation(c.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-[#EF4444] hover:bg-[#EF4444]/10 transition-colors"><Trash2 size={14} /></button>
                       </div></td>
                     </tr>))}
                   </tbody></table></div>
@@ -232,22 +232,22 @@ export default function Dashboard() {
             {activeTab === "events" && (
               <div className="space-y-6 animate-in fade-in duration-300">
                 <div className="flex items-center justify-between">
-                  <div><h2 className="text-xl font-bold text-white">Événements</h2><p className="text-sm text-[#606060]">{events.length} événement(s) planifié(s)</p></div>
+                  <div><h2 className="text-xl font-bold text-foreground">Événements</h2><p className="text-sm text-muted-foreground">{events.length} événement(s) planifié(s)</p></div>
                   <button onClick={() => { setSelectedEvent(null); setShowEventForm(true) }} className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium bg-gradient-to-r from-[#D45902] to-[#F97316] text-white rounded-xl hover:shadow-lg hover:shadow-[#D45902]/25 transition-all"><Plus size={14} />Créer</button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {events.map(ev => (
                     <div key={ev.id} className="glass-card rounded-2xl p-5 hover:border-[#D45902]/20 hover:-translate-y-0.5 transition-all duration-200 group">
-                      <div className="flex items-start justify-between mb-3"><h3 className="text-sm font-bold text-white leading-tight flex-1 pr-2">{ev.titre}</h3>
-                        <div className="flex gap-1"><button onClick={() => { setSelectedEvent(ev); setShowEventForm(true) }} className="p-1.5 rounded-lg text-[#606060] hover:text-[#D45902] hover:bg-[#D45902]/10 transition-colors opacity-0 group-hover:opacity-100"><Edit2 size={13} /></button><button onClick={() => deleteEvent(ev.id)} className="p-1.5 rounded-lg text-[#606060] hover:text-[#EF4444] hover:bg-[#EF4444]/10 transition-colors opacity-0 group-hover:opacity-100"><Trash2 size={13} /></button></div>
+                      <div className="flex items-start justify-between mb-3"><h3 className="text-sm font-bold text-foreground leading-tight flex-1 pr-2">{ev.titre}</h3>
+                        <div className="flex gap-1"><button onClick={() => { setSelectedEvent(ev); setShowEventForm(true) }} className="p-1.5 rounded-lg text-muted-foreground hover:text-[#D45902] hover:bg-[#D45902]/10 transition-colors opacity-0 group-hover:opacity-100"><Edit2 size={13} /></button><button onClick={() => deleteEvent(ev.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-[#EF4444] hover:bg-[#EF4444]/10 transition-colors opacity-0 group-hover:opacity-100"><Trash2 size={13} /></button></div>
                       </div>
-                      <p className="text-[11px] text-[#A0A0A0] mb-3 line-clamp-2">{ev.description}</p>
-                      <div className="space-y-1.5 text-[11px] text-[#606060]">
+                      <p className="text-[11px] text-muted-foreground mb-3 line-clamp-2">{ev.description}</p>
+                      <div className="space-y-1.5 text-[11px] text-muted-foreground">
                         <div className="flex items-center gap-1.5"><CalendarDays size={11} /><span>{ev.date}</span><Clock size={11} className="ml-2" /><span>{ev.heure}</span></div>
                         <div className="flex items-center gap-1.5"><MapPin size={11} /><span>{ev.lieu}</span></div>
                         <div className="flex items-center gap-1.5"><Users size={11} /><span>{ev.participants.length}/{ev.capacite} participants</span></div>
                       </div>
-                      <div className="mt-3 w-full bg-white/[0.06] rounded-full h-1"><div className="bg-[#D45902] rounded-full h-1" style={{ width: `${(ev.participants.length / ev.capacite) * 100}%` }} /></div>
+                      <div className="mt-3 w-full bg-border rounded-full h-1"><div className="bg-[#D45902] rounded-full h-1" style={{ width: `${(ev.participants.length / ev.capacite) * 100}%` }} /></div>
                     </div>
                   ))}
                 </div>
@@ -257,7 +257,7 @@ export default function Dashboard() {
             {/* GALLERY */}
             {activeTab === "gallery" && (
               <div className="space-y-6 animate-in fade-in duration-300">
-                <div><h2 className="text-xl font-bold text-white">Galerie Média</h2><p className="text-sm text-[#606060]">Photos et vidéos du club</p></div>
+                <div><h2 className="text-xl font-bold text-foreground">Galerie Média</h2><p className="text-sm text-muted-foreground">Photos et vidéos du club</p></div>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {gallery.map(item => (
                     <div key={item.id} className="glass-card rounded-2xl overflow-hidden group hover:-translate-y-0.5 transition-all duration-200">
@@ -266,10 +266,10 @@ export default function Dashboard() {
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                       </div>
                       <div className="p-4">
-                        <h4 className="text-sm font-medium text-white mb-2">{item.titre}</h4>
+                        <h4 className="text-sm font-medium text-foreground mb-2">{item.titre}</h4>
                         <div className="flex items-center gap-4">
-                          <button onClick={() => toggleLike(item.id)} className={cn("flex items-center gap-1 text-xs transition-colors", item.liked ? "text-[#EF4444]" : "text-[#606060] hover:text-[#EF4444]")}><Heart size={14} fill={item.liked ? "#EF4444" : "none"} />{item.likes}</button>
-                          <button className="flex items-center gap-1 text-xs text-[#606060] hover:text-white transition-colors"><MessageCircle size={14} />0</button>
+                          <button onClick={() => toggleLike(item.id)} className={cn("flex items-center gap-1 text-xs transition-colors", item.liked ? "text-[#EF4444]" : "text-muted-foreground hover:text-[#EF4444]")}><Heart size={14} fill={item.liked ? "#EF4444" : "none"} />{item.likes}</button>
+                          <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"><MessageCircle size={14} />0</button>
                         </div>
                       </div>
                     </div>
@@ -282,7 +282,7 @@ export default function Dashboard() {
             {activeTab === "announcements" && (
               <div className="space-y-6 animate-in fade-in duration-300">
                 <div className="flex items-center justify-between">
-                  <div><h2 className="text-xl font-bold text-white">Annonces</h2><p className="text-sm text-[#606060]">Actualités et communications du club</p></div>
+                  <div><h2 className="text-xl font-bold text-foreground">Annonces</h2><p className="text-sm text-muted-foreground">Actualités et communications du club</p></div>
                   <button onClick={() => { setSelectedAnnouncement(null); setShowAnnouncementForm(true) }} className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium bg-gradient-to-r from-[#D45902] to-[#F97316] text-white rounded-xl hover:shadow-lg hover:shadow-[#D45902]/25 transition-all"><Plus size={14} />Publier</button>
                 </div>
                 <div className="space-y-4">
@@ -291,16 +291,16 @@ export default function Dashboard() {
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-2">
                           {ann.epingle && <Pin size={14} className="text-[#D45902]" />}
-                          <h3 className="text-base font-bold text-white">{ann.titre}</h3>
+                          <h3 className="text-base font-bold text-foreground">{ann.titre}</h3>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={cn("px-2.5 py-1 rounded-full text-[10px] font-semibold flex items-center gap-1", ann.visibilite === "public" ? "bg-[#3B82F6]/10 text-[#3B82F6]" : "bg-[#F59E0B]/10 text-[#F59E0B]")}>{ann.visibilite === "public" ? <><Globe size={10} />Public</> : <><Lock size={10} />Membres</>}</span>
-                          <button onClick={() => { setSelectedAnnouncement(ann); setShowAnnouncementForm(true) }} className="p-1.5 rounded-lg text-[#606060] hover:text-[#D45902] hover:bg-[#D45902]/10 transition-colors opacity-0 group-hover:opacity-100"><Edit2 size={13} /></button>
-                          <button onClick={() => deleteAnnouncement(ann.id)} className="p-1.5 rounded-lg text-[#606060] hover:text-[#EF4444] hover:bg-[#EF4444]/10 transition-colors opacity-0 group-hover:opacity-100"><Trash2 size={13} /></button>
+                          <button onClick={() => { setSelectedAnnouncement(ann); setShowAnnouncementForm(true) }} className="p-1.5 rounded-lg text-muted-foreground hover:text-[#D45902] hover:bg-[#D45902]/10 transition-colors opacity-0 group-hover:opacity-100"><Edit2 size={13} /></button>
+                          <button onClick={() => deleteAnnouncement(ann.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-[#EF4444] hover:bg-[#EF4444]/10 transition-colors opacity-0 group-hover:opacity-100"><Trash2 size={13} /></button>
                         </div>
                       </div>
-                      <p className="text-sm text-[#A0A0A0] leading-relaxed mb-3">{ann.contenu}</p>
-                      <div className="flex items-center gap-3 text-[11px] text-[#606060]"><span>{ann.date}</span><span>•</span><span>{ann.auteur}</span></div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">{ann.contenu}</p>
+                      <div className="flex items-center gap-3 text-[11px] text-muted-foreground"><span>{ann.date}</span><span>•</span><span>{ann.auteur}</span></div>
                     </div>
                   ))}
                 </div>
@@ -310,16 +310,27 @@ export default function Dashboard() {
             {/* SETTINGS */}
             {activeTab === "settings" && (
               <div className="space-y-6 animate-in fade-in duration-300 max-w-2xl">
-                <div><h2 className="text-xl font-bold text-white">Paramètres</h2><p className="text-sm text-[#606060]">Configuration de la plateforme</p></div>
+                <div><h2 className="text-xl font-bold text-foreground">Paramètres</h2><p className="text-sm text-muted-foreground">Configuration de la plateforme</p></div>
                 <div className="glass-card rounded-2xl p-6 space-y-6">
-                  <div className="flex items-center gap-4"><div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#D45902] to-[#F97316] flex items-center justify-center text-2xl font-bold text-white">A</div><div><h3 className="text-base font-bold text-white">Admin Eagles</h3><p className="text-sm text-[#606060]">admin@eagles.com</p><p className="text-xs text-[#606060] mt-1">Administrateur principal</p></div></div>
-                  <div className="border-t border-white/[0.06] pt-6 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#D45902] to-[#F97316] flex items-center justify-center text-2xl font-bold text-white">A</div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h3 className="text-base font-bold text-foreground">Admin Eagles</h3>
+                          <p className="text-sm text-muted-foreground">admin@eagles.com</p>
+                          <p className="text-xs text-muted-foreground mt-1">Administrateur principal</p>
+                        </div>
+                        <ThemeToggle />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border-t border-border pt-6 space-y-4">
                     {[
                       { icon: User, label: "Profil utilisateur", desc: "Gérer vos informations personnelles" },
                       { icon: Bell, label: "Notifications", desc: "Configurer les alertes et rappels" },
                       { icon: Shield, label: "Sécurité", desc: "Mot de passe et authentification" },
-                      { icon: Moon, label: "Apparence", desc: "Thème sombre activé" },
-                    ].map((item, i) => (<div key={i} className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/[0.02] transition-colors cursor-pointer group"><div className="p-2.5 rounded-xl bg-white/[0.04] text-[#D45902]"><item.icon size={18} /></div><div className="flex-1"><p className="text-sm font-medium text-white">{item.label}</p><p className="text-xs text-[#606060]">{item.desc}</p></div><ChevronRight size={16} className="text-[#606060] group-hover:text-white transition-colors" /></div>))}
+                    ].map((item, i) => (<div key={i} className="flex items-center gap-4 p-4 rounded-xl hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors cursor-pointer group"><div className="p-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.04] text-[#D45902]"><item.icon size={18} /></div><div className="flex-1"><p className="text-sm font-medium text-foreground">{item.label}</p><p className="text-xs text-muted-foreground">{item.desc}</p></div><ChevronRight size={16} className="text-muted-foreground group-hover:text-foreground transition-colors" /></div>))}
                   </div>
                 </div>
               </div>
@@ -328,8 +339,8 @@ export default function Dashboard() {
           </div>
 
           {/* Footer */}
-          <footer className="border-t border-white/[0.06] py-4 mt-8">
-            <p className="text-center text-[11px] text-[#606060]">© Ahmed Arryan Bennifou — Club Eagles Management System</p>
+          <footer className="border-t border-border py-4 mt-8">
+            <p className="text-center text-[11px] text-muted-foreground">© Ahmed Arryan Bennifou — Club Eagles Management System</p>
           </footer>
         </main>
       </div>

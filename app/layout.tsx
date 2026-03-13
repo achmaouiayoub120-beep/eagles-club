@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Outfit, Geist_Mono } from "next/font/google"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-sans" })
@@ -21,9 +22,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" className="dark" suppressHydrationWarning>
-      <body className={`${outfit.variable} ${geistMono.variable} font-sans antialiased bg-[#080808] text-[#F5F5F5]`}>
-        {children}
+    <html lang="fr" suppressHydrationWarning>
+      <body className={`${outfit.variable} ${geistMono.variable} font-sans antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
