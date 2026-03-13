@@ -15,6 +15,7 @@ import {
   DollarSign,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ThemeToggle } from "./theme-toggle"
 
 interface DashboardHeaderProps {
   searchQuery: string
@@ -50,11 +51,16 @@ export function DashboardHeader({ searchQuery, onSearchChange, sidebarCollapsed 
 
         {/* Right actions */}
         <div className="flex items-center gap-2">
+          {/* Theme Toggle */}
+          <div className="mr-1">
+            <ThemeToggle />
+          </div>
+
           {/* Notifications */}
           <div className="relative">
             <button
               onClick={() => { setShowNotifications(!showNotifications); setShowUserMenu(false) }}
-              className="relative p-2.5 rounded-xl text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors"
+              className="relative p-2.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             >
               <Bell size={18} />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#D45902] rounded-full animate-pulse" />
